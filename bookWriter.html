@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin: 20px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      margin-bottom: 10px;
+    }
+    
+    #content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    #sidebar {
+        height: 100%;
+        width: 400px;
+        position: fixed;
+        top: 0;
+        z-index: 1;
+        right: 0;
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    #toc-list-container {
+        max-height: 400px; /* Set the maximum height for the contents list */
+    }
+    
+    #sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    #sidebar li {
+      margin-bottom: 10px;
+    }
+    
+    .editable {
+      border: 1px solid #ccc;
+      padding: 5px;
+      margin-bottom: 20px;
+      margin-right: 200px;
+    }
+    
+    #add-chapter-btn {
+      display: block;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    function addChapter() {
+      var chapterCount = document.getElementsByClassName('editable').length + 1;
+      
+      // Create a new chapter heading
+      var newHeading = document.createElement('h2');
+      newHeading.id = 'chapter' + chapterCount;
+      newHeading.innerHTML = 'Chapter ' + chapterCount;
+      
+      // Create a new editable div
+      var newEditableDiv = document.createElement('div');
+      newEditableDiv.className = 'editable';
+      newEditableDiv.contentEditable = true;
+      
+      // Create a new paragraph inside the editable div
+      var newParagraph = document.createElement('p');
+      newParagraph.innerHTML = 'Your content for Chapter ' + chapterCount + ' goes here.';
+      
+      // Append the new elements to the content div
+      var contentDiv = document.getElementById('content');
+      contentDiv.appendChild(newHeading);
+      newEditableDiv.appendChild(newParagraph);
+      contentDiv.appendChild(newEditableDiv);
+      
+      // Add a link to the new chapter in the table of contents
+      var tocList = document.getElementById('toc-list');
+      var newTocItem = document.createElement('li');
+      var newTocLink = document.createElement('a');
+      newTocLink.href = '#chapter' + chapterCount;
+      newTocLink.innerHTML = 'Chapter ' + chapterCount;
+      newTocItem.appendChild(newTocLink);
+      tocList.appendChild(newTocItem);
+    }
+  </script>
+</head>
+<body style="background-color:rgb(255,221,138);">
+  <div id="content">
+    <h1>My Book</h1>
+
+    <!-- Add more chapters here -->
+    <button id="add-chapter-btn" onclick="addChapter()">Add Chapter</button>
+    
+    <div id="sidebar">
+      <h2>Contents</h2>
+      <ul id="toc-list">
+        <li><a href="#chapter1">Chapter 1</a></li>
+        <li><a href="#chapter2">Chapter 2</a></li>
+        <li><a href="#chapter3">Chapter 3</a></li>
+        <!-- Add more chapters here -->
+      </ul>
+    </div>
+    
+    <h2 id="chapter1">Chapter 1</h2>
+    <div class="editable" contenteditable="true">
+      <p>Your content for Chapter 1 goes here.</p>
+    </div>
+    
+    <h2 id="chapter2">Chapter 2</h2>
+    <div class="editable" contenteditable="true">
+      <p>Your content for Chapter 2 goes here.</p>
+    </div>
+    
+    <h2 id="chapter3">Chapter 3</h2>
+    <div class="editable" contenteditable="true">
+      <p>Your content for Chapter 3 goes here.</p>
+    </div>
+  </div>
+</body>
+</html>
